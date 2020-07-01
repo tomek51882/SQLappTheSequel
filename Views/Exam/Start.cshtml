@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Start";
+    int taskID = ViewBag.id;
+}
+    <div class="jumbotron">
+        <h1>Rozpoczęcie egzaminu...</h1>
+        <p class="lead">Za chwilę przystąpisz do wybranego zadania.</p>
+    </div>
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">Czy na pewno chcesz rozpocząć egzamin?</h5>
+            @Html.ActionLink("Tak, rozpocznij", "Write", "Exam", new { id=taskID }, htmlAttributes: new { @class = "btn btn-primary mr-3" })
+            @Html.ActionLink("Nie, błagam zabierz mnie stąd...", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-outline-danger" })
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-12">
+            <h5>Jak wygląda egzamin?</h5>
+            <p>
+                Po rozpoczęciu egzaminu zobaczysz polecenie oraz treść tego zadania.
+                Pod nimi znajdziesz pole na wpisanie swojego kodu SQL. Twój kod zostanie poddany naszym procedurom
+                przetwarzającym. Zostanie on wprowadzony do systemu a następnie porównany z wzorcem.
+            </p>
+            <p>
+                <b>Ważne jest</b> aby Twój kod był zgodny ze standardami kodu T-SQL. Jego nieprawidłowe wpisanie
+                sprawi, że system odrzuci Twoje rozwiązanie, czego skutkiem będzie niezaliczenie egzaminu a w miejsce
+                wyniku zostanie wstawione zero.
+            </p>
+            <p>
+                Przykładowy egzamin wygląda tak:
+            </p>
+            <div class="card">
+                <h5 class="card-header">Tu będzie polecenie zadania</h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        Natomiast tutaj znajdziesz jego treść. Treść zadania jak można się
+                        domyśleć objaśni co musisz wykonać. W związku z tym że system jest zautomatyzowany
+                        zostanie Ci przydzielona nazwa tabeli na której będziesz pracował.
+                    </p>
+                </div>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Table name:</span>
+                </div>
+                <input type="text" value="ExeTable_23a9c20e-49ab-436c-b2c1-a17e76c9ca56" class="form-control" id="basic-url" readonly>
+            </div>
+            <div class="form-group mt-2">
+                <label for="exampleFormControlTextarea1">Twoje rozwiązanie:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4">Tu wpisujesz swój kod SQL</textarea>
+            </div>
+        </div>
+    </div>

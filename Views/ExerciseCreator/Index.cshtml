@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@{
+    int modelID = ViewBag.modelID;
+    string error = ViewBag.error;
+}
+
+<div class="jumbotron">
+    <h1>Kreator tworzenia nowego zadania.</h1>
+    <p class="lead">Kreator przeprowadzi Ciebie przez proces dodawania nowego zadania.</p>
+</div>
+<div class="progress mb-3">
+    <div class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">33%</div>
+</div>
+@{
+    if (error == "0001")
+    {
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Błąd przetwarzania kodu SQL.</h4>
+        <p>Coś poszło nie tak jak byśmy tego chcieli. Sprawdź czy podany kod SQL jest prawidłowy. Pamiętaj, że obsługiwany jest jedynie kod MS SQL.</p>
+        <hr>
+        <p class="mb-0 small">Kod błędu: #@error</p>
+        <p class="mb-0 small">@ViewBag.errorMsg</p>
+    </div>
+    }
+}
+
+<form action="/ExerciseCreator/Index" method="POST">
+    <div class="form-group">
+        @Html.TextBox("TextboxName", "Identyfikator wzorca: " + @modelID, new { @readonly = true, @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>
+            Wprowadź <b>KOD SQL</b> który jest rozwiązaniem zadania. Kod ten zostanie przetworzony a następnie na jego podstawie zostanie utworzona tabela,
+            która będzie rozwiązaniem zadania. Wszystkie przesłane zadania będą porównywane do tej tabeli wzorcowej.
+        </label>
+        <row>
+            @Html.TextBox("SQLheader", "CREATE TABLE Model_" + @modelID + " (", new { @class = "form-control card-header", @readonly = true })
+        </row>
+        <row>
+            @Html.TextArea("SQLcode", null, new { @class = "form-control card-body", @rows = 10 })
+        </row>
+        @Html.Hidden("modelID", @modelID)
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Dalej" class="btn btn-primary" />
+    </div>
+</form>
+
+

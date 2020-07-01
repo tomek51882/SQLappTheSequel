@@ -1,0 +1,84 @@
+﻿@model IEnumerable<SQLappTheSequel.Models.Exercise>
+@{
+    ViewBag.Title = "SubCat";
+}
+
+<div class="jumbotron">
+    <h1>Zadania</h1>
+    <p class="lead">Tutaj znajdziesz wszystkie zadania w wybranym przez Ciebie dziale.</p>
+</div>
+<div class="list-group">
+
+    @foreach (var item in Model)
+    {
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="row">
+                <div class="col">
+                    <h5>@Html.DisplayFor(modelItem => item.Command)</h5>
+                </div>
+                <div class="col-sm-auto text-right">
+                    <p class="text-secondary">Brak Wyników</p>
+                </div>
+            </div>
+            <div class="progress" style="height: 2px;">
+                <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.ActionLink("Przejdz do szczegółów", "Index", "Exam", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-outline-primary mt-3" })
+                    @Html.ActionLink("Rozpocznij egzamin", "Start", "Exam", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-outline-danger mt-3" })
+                </div>
+            </div>
+        </div>
+    }
+    <!--
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+            <div class="col">
+                <h5>MSSQL Select</h5>
+                <div class="progress" style="height: 2px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p>Zadanie sprawdzające znajomość SELECT'a. fkjsagksagfksdgfkgs ds fgsdkgf ds fhgshgjfg hdshfj gdshjfgs dhjfgsd hjfgh shgfhgjfkjs agksagfksdgfkgs ds fgsdkgf ds fhgshgjfg hdshfj gdshjfgs dhjfgsd hjfgh shgfhgj dsgjhfgh jsdghf dsjgf jhs</p>
+            </div>
+            <div class="col-sm-auto text-right">
+                <p class="text-success">Wynik: 80%</p>
+                <button class="btn btn-sm btn-outline-primary">Szczegóły</button>
+            </div>
+        </div>
+    </div>
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+            <div class="col">
+                <h5>MSSQL Select</h5>
+                <div class="progress" style="height: 2px;">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p>Zadanie sprawdzające znajomość SELECT'a</p>
+            </div>
+            <div class="col-sm-auto text-right">
+                <p class="text-danger">Wynik: 20%</p>
+                <button class="btn btn-sm btn-outline-primary">Szczegóły</button>
+            </div>
+        </div>
+    </div>
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+            <div class="col">
+                <h5>MSSQL Select</h5>
+            </div>
+            <div class="col-sm-auto text-right">
+                <p class="text-secondary">Wynik: 20%</p>
+            </div>
+        </div>
+        <div class="progress" style="height: 2px;">
+            <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-sm btn-outline-primary mt-3">Szczegóły</button>
+            </div>
+        </div>
+    </div>
+        -->
+</div>

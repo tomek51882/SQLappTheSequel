@@ -1,0 +1,79 @@
+﻿@model SQLappTheSequel.Models.Exercise
+@{
+    ViewBag.Title = "Continue";
+}
+@{
+    int modelID = ViewBag.modelID;
+    int taskID = ViewBag.taskID;
+    string userID = ViewBag.userID;
+    string error = ViewBag.error;
+}
+<div class="jumbotron">
+    <h1>Kreator tworzenia nowego zadania.</h1>
+    <p class="lead">Kreator przeprowadzi Ciebie przez proces dodawania nowego zadania.</p>
+</div>
+<div class="progress mb-3">
+    <div class="progress-bar" role="progressbar" style="width: 66%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100">66%</div>
+</div>
+@{
+    if (error == "0002")
+    {
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Błąd przetwarzania danych</h4>
+            <p>Coś poszło nie tak jak byśmy tego chcieli. Sprawdź czy podane przez Ciebie dane są poprawne. W razie dalszych problemów proszę skontaktować się z administratorem.</p>
+            <hr>
+            <p class="mb-0 small">Kod błędu: #@error</p>
+            <p class="mb-0 small">@ViewBag.errorMsg</p>
+        </div>
+    }
+}
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Kod SQL Przetworzony pomyślnie!</h4>
+    <p>Podany kod pomyślnie przeszedł nasze procedury wprowadzające. Tabela wzorcowa zawierająca wynik została utworzona i pomyślnie wprowadzona do bazy danych.</p>
+    <hr>
+    <p class="mb-0">Możemy kontynuować tworzenie zadania.</p>
+</div>
+<form action="/ExerciseCreator/Continue" method="POST">
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="TextboxName">Identyfikator zadania</label>
+            </div>
+            @Html.TextBox("TextboxName", @taskID, new { @readonly = true, @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label>
+            Wprowadź polecenie.
+        </label>
+        <div class="input-group">
+            @Html.TextAreaFor(model => model.Command, new { @class = "form-control", @rows = 1 })
+        </div>
+        <label>
+            Wprowadź treść zadania.
+        </label>
+        <div class="input-group">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = 10 })
+        </div>
+        <div class="input-group mt-2">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="CreatorId">Identyfikator użytkownika</label>
+            </div>
+            @Html.TextBoxFor(model => model.UserId, new { @Value = userID, @class = "form-control", @readonly = true })
+        </div>
+        <div class="input-group mt-2">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="SubcategoryID">Podkategoria</label>
+            </div>
+            @Html.DropDownList("Subcategory_Id", new SelectList(ViewBag.Subcategories, "Id", "Name"), new { @class = "custom-select" })
+        </div>
+
+        @Html.HiddenFor(model => model.CreatedAt, new { @Value = (DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") })
+        @Html.HiddenFor(model => model.ModifiedAt, new { @Value = (DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") })
+        @Html.Hidden("modelID", modelID)
+        @Html.Hidden("taskID", taskID)
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Dalej" class="btn btn-primary" />
+    </div>
+</form>

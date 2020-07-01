@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SQLappTheSequel.Models.Category>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Sprawdzarka SQL</h1>
+    <p class="lead">Sprawdzarka SQL jest platformą do automatycznego sprawdzania zadań SQL.</p>
+    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-3">
+        @if (User.IsInRole("Administrator"))
+        {
+            <div class="card">
+                <div class="card-header">
+                    Panel Administracyjny
+                </div>
+                <div class="card-body">
+                    @Html.ActionLink("Otwórz Panel Administracyjny", "Index", "AdminPanel", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-12 mb-3">
+        @if (User.IsInRole("Administrator") || User.IsInRole("Teacher"))
+        {
+            <div class="card">
+                <div class="card-header">
+                    Kreator zadań
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Chcesz utworzyć nowe zadanie?</h5>
+                    <p class="card-text">Kliknij tutaj aby przejść do kreatora zadań. Z nim przygotujesz nowe zadanie.</p>
+                    @Html.ActionLink("Przejdz do kreatora", "Index", "ExerciseCreator", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (User.IsInRole("Student") || User.IsInRole("Teacher") || User.IsInRole("Administrator"))
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        @Html.ActionLink("Przejdz do zadań", "Cat", new { id=item.Id } , htmlAttributes: new { @class = "btn btn-outline-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>

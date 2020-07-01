@@ -1,0 +1,54 @@
+﻿@model SQLappTheSequel.Models.Exercise
+@{
+    ViewBag.Title = "Write";
+    int taskID = ViewBag.TaskID;
+    string error = ViewBag.error;
+}
+
+@{
+    if (error == "0003")
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            <h4 class="alert-heading">Błąd przetwarzania kodu SQL.</h4>
+            <p>Coś poszło nie tak. Sprawdź czy podany kod SQL jest prawidłowy.</p>
+            <hr>
+            <p class="mb-0 small">Kod błędu: #@error</p>
+            <p class="mb-0 small">@ViewBag.errorMsg</p>
+        </div>
+    }
+    if (error == "0004")
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            <h4 class="alert-heading">Błąd porównania ze wzorcem.</h4>
+            <p>Coś poszło nie tak podczas sprawdzania pracy ze wzorcem. Spróbuj ponownie później. Jeżeli problem dalej będzie występować proszę skontaktować się z administratorem.</p>
+            <hr>
+            <p class="mb-0 small">Kod błędu: #@error</p>
+            <p class="mb-0 small">@ViewBag.errorMsg</p>
+        </div>
+    }
+}
+
+<div class="card mt-3">
+    <h5 class="card-header">@Html.DisplayTextFor(model => model.Command)</h5>
+    <div class="card-body">
+        <p class="card-text">
+            @Html.DisplayTextFor(model => model.Description)
+        </p>
+    </div>
+</div>
+<div class="input-group mt-2">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">Table name:</span>
+    </div>
+    <input type="text" value=@ViewBag.ExeTable class="form-control" id="basic-url" readonly>
+</div>
+<form action="/Exam/Write" method="POST">
+    <div class="form-group mt-2">
+        <label>Twoje rozwiązanie:</label>
+        @Html.TextArea("SQLcode", null, new { @class = "form-control card-body", @rows = 10 })
+        @Html.Hidden("taskID", taskID)
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Zakończ sprawdzanie" class="btn btn-primary" />
+    </div>
+</form>

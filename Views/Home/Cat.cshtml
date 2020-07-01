@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SQLappTheSequel.Models.Subcategory>
+
+@{
+    ViewBag.Title = "Cat";
+}
+
+    <div class="jumbotron">
+        <h1>Podkategorie</h1>
+        <p class="lead">Wybierz jedną spośród tych kategorii. Znajdziesz w nich zadania które możesz wykonać.</p>
+    </div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-md-6 mb-3 d-flex">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    @Html.ActionLink("Przejdz do zadań", "SubCat", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-outline-primary " })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
